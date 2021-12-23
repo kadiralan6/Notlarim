@@ -1,4 +1,5 @@
 ﻿
+using Notlarim102.Common;
 using Notlarim102.DataAccessLayer;
 using Notlarim102.Entity;
 using System;
@@ -48,8 +49,8 @@ namespace Notlarim102.DataAccessLayer.EntityFramework
                 DateTime now = DateTime.Now;
                 o.CreatedOn = now;
                 o.ModifiedOn = now;
-                o.ModifiedUserName = "system";
-
+                o.ModifiedUserName = App.Common.GetCurrentUsername();
+                 
             }
 
            /* ModifiedOn = now,
@@ -64,7 +65,7 @@ namespace Notlarim102.DataAccessLayer.EntityFramework
                 MyEntityBase o = obj as MyEntityBase; // entitybase ile eşleşenleri al
                
                 o.ModifiedOn = DateTime.Now;
-                o.ModifiedUserName = "system";
+                o.ModifiedUserName = App.Common.GetCurrentUsername();
 
             }
             return Save();

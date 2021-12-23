@@ -1,5 +1,6 @@
 ﻿using Notlarim102.BusinessLayer;
 using Notlarim102.Entity;
+using Notlarim102.Entity.Messages;
 using Notlarim102.Entity.ValueObject;
 using Notlarim102.WebApp;
 using System;
@@ -177,6 +178,34 @@ namespace Notlarim102.WebApp.Controllers
         public ActionResult RegisterOk()
         {
             return View();
+        }
+        // 22,12- 20
+        public ActionResult UserActivate(Guid id)
+        {
+            NotlarimUserManager num = new NotlarimUserManager();
+            BusinessLayerResult<NotlarimUser> res = num.ActivateUser(id);
+            if (res.Errors.Count>0)
+            {
+                TempData["errors"] = res.Errors;
+                return RedirectToAction("UserActivateCancel");
+            }
+            return  RedirectToAction("UserActivateOk");
+        }
+        // 22,12- 21 alltakilerin viewi oluşturup registerok den kopyala yapıstr aldık.
+        public ActionResult UserActivateOk()
+        {
+
+            return View();
+        }
+        public ActionResult UserActivateCancel()
+        {
+            List<ErrorMessageObject> errors = null;
+            if (TempData["errors"]!=null)
+            {
+                errors= TempData["errors"] as List<ErrorMessageObject>;
+
+            }
+            return View(errors);
         }
     }
 
